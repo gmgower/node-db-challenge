@@ -50,16 +50,29 @@ router.post('/resources', (req, res) => {
 
 
 
-  router.get('/tasks', (req, res) => {
-    Projects.getTasks()
-        .then(tasks => {
-            res.json(tasks)
-        })
-        .catch(err => {
-            res.status(500).json({ message: 'Failed to get projects'})
-        })
-})
+//   router.get('/tasks', (req, res) => {
+//     Projects.getTasks()
+//         .then(tasks => {
+//             res.json(tasks)
+//         })
+//         .catch(err => {
+//             res.status(500).json({ message: 'Failed to get projects'})
+//         })
+// })
 
+router.get('/:id/tasks', (req, res) => {
+    const { id } = req.params;
+    
+    Projects.getTasks(id)
+    .then(task => {
+        if (task) {
+          res.status(200).json(task);
+        } else {
+          res.status(404).json({ message: 'Could not find task' })
+        }
+      })
+      .catch(() => res.status(500).json({ message: 'Failed to get task' }));
+});
 
 router.post('/tasks', (req, res) => {
     const taskData = req.body;

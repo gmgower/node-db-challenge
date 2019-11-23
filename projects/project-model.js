@@ -36,19 +36,26 @@ function addResources(resourcesData) {
     return db('resources').insert(resourcesData)
 }
 
-function getTasks() {
-    return db('tasks')
-        .then(tasks => {
-            tasks.map( task => {
-                if(task.completed) {
-                    task.completed = true
-                }
-                else {
-                    task.completed = false
-                }
-            })
-            return tasks
-        })
+// function getTasks() {
+//     return db('tasks')
+//         .then(tasks => {
+//             tasks.map( task => {
+//                 if(task.completed) {
+//                     task.completed = true
+//                 }
+//                 else {
+//                     task.completed = false
+//                 }
+//             })
+//             return tasks
+//         })
+// }
+
+function getTasks(id) {
+    return db.select('project_name', 'projects_description', 'tasks_description', 'tasks_notes', 'tasks_completed', 'tasks_project_id')
+             .from('projects')
+             .join('tasks', 'tasks.project_id', 'projects.id' )
+             .where({ project_id: id })
 }
 
 
