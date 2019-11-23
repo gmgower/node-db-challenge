@@ -40,12 +40,20 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+      Relational databases store data in tables grouped into rows and columns, similar to what we might see in a spreadsheet. SQL, or Structured Query Language, is the standard language used to manage databases. SQL is used to retrieve data from relational databases.
+
 - [ ] Why do tables need a `primary key`?
+
+ Tables need primary keys to uniquely identify each row of the data.
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+     A foreign key
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
 
+      In order to have many-to-many relationships between two tables, we need to have an intermediary table that maps foreign keys to the primary keys on the related tables.
+      
 ## Minimum Viable Product
 
 Take the steps necessary to complete the project from scratch. Start by initializing your project with a `package.json` and go from there.
