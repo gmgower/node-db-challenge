@@ -16,6 +16,37 @@ function getProjects() {
 }
 
 
+function getProjectsById(id) {
+    return db('projects')
+    .where({id})
+    .first()
+    .then(projectObj => { //! parent object display on body
+        projectObj.completed ? projectObj.completed = true : projectObj.completed = false
+        // if(projectObj.completed){
+        //     projectObj.completed = true
+        // } else {
+        //     projectObj.completed = false
+        // }
+        console.log(projectObj.id)
+        return db('tasks')
+        .where("project_id", id)
+        .then((tasksArr) => {
+            tasksArr.map(task => {
+                task.completed ? task.completed = true : task.completed = false
+
+                // if(task.completed) {
+                //     task.completed = true
+                // } else {
+                //     task.completed = false
+                // }
+            })
+            projectObj.steps = tasksArr;
+            return projectObj;
+        })
+    })
+}
+
+
 function addProject(projectData) {
     return db('projects')
         .insert(projectData, 'id')
@@ -69,6 +100,7 @@ function addTasks(taskData) {
 module.exports = {
   getProjects,
   addProject,
+  getProjectsById,
   getResources,
   addResources,
   getTasks,
